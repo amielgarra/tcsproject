@@ -1,0 +1,63 @@
+{% extends 'tcsproject/base.html' %}
+{% block content %}
+
+{% if not categories == 'None' %}
+<div class="container-fluid" id="whiteh3">
+<div>
+<h4>{{category}}</h4>
+</div>
+	{% for category in categories %}
+<div class="col-sm-6 col-md-3" id="grayh3">
+    <div class="thumbnail" style="min-height: 200px; height: 230px; width: 300px;">
+      <center><h3>{{category.title}}</h3></center>
+      <div class="caption">
+        <div style="min-height: 50px; height: 80px;" id="of">
+        <p>{{category.desc}}</p>
+        </div>
+        <br>
+        <div><i>Likes: </i>
+        {% for key, value in likes.iteritems %}
+          {% if key == category.title %}
+            {{value}}
+          {% endif %}
+        {% endfor %}
+        </div>
+        <!-- <center><a class="btn btn-big" data-toggle="modal" data-target="#{{category.id}}">View {{category.title}}</a></center> -->
+        <center><a class="btn btn-big" href="/tcsproject/thesis/{{category.id}}">View {{category.title}}</a></center>
+        </div>
+      </div>
+</div>
+
+	{% endfor %}
+</div>
+
+<center>
+<div class="pagination" id="whiteh3">
+    <span class="step-links">
+        {% if categories.has_previous %}
+            <a href="?page={{ categories.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            <center><h4>Page {{ categories.number }} of {{ categories.paginator.num_pages }}.</h4></center>
+        </span>
+
+        {% if categories.has_next %}
+            <a href="?page={{ categories.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+</center>
+
+{% else %}
+	<style>
+  #white h1{
+    color:#ecf0f1;
+  }
+  </style>
+  <br><br><br>
+	<div class="col-sm-12 col-md-12" id="white" align="center">
+		<h1>Sorry, there are no thesis available right now for {{category}}.</h1>
+	</div>
+{% endif %}
+{% endblock %}

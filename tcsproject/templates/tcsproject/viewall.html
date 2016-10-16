@@ -1,0 +1,56 @@
+{% extends 'tcsproject/base.html' %}
+{% block content %}
+{% load widget_tweaks %}
+
+<div class="container-fluid" id="whiteh3">
+<h4>All Thesis</h4>
+<div>
+<a href="/tcsproject/thesis/all/published/">By publish date</a>
+ | 
+<a href="/tcsproject/thesis/all/authors/">By authors</a>
+ | 
+<a href="/tcsproject/thesis/all/added/">By date added</a>
+ | 
+<a href="/tcsproject/thesis/all/">Default</a>
+</div>
+<br>
+{% for topic in viewall %}  
+<div class="col-sm-6 col-md-3" id="grayh3">
+    <div class="thumbnail" style="min-height: 200px; height: 270px; width: 300px;">
+      <center><h3>{{topic.title}}</h3></center>
+      <div class="caption">
+        <div style="min-height: 50px; height: 80px;" id="of">
+        <p>{{topic.desc}}</p>
+        </div>
+        <br>
+        <div><i>Date added: </i>{{topic.date_added}}</div>
+        <div><i>Date published: </i>{{topic.date_published}}</div>
+        <br>
+        <!-- <center><a class="btn btn-big" data-toggle="modal" data-target="#{{topic.id}}">View {{topic.title}}</a></center> -->
+        <center><a class="btn btn-big" href="/tcsproject/thesis/{{topic.id}}">View {{topic.title}}</a></center>
+        </div>
+      </div>
+</div>
+
+
+{% endfor %}
+</div>
+<center>
+<div class="pagination" id="whiteh3">
+    <span class="step-links">
+
+        <span class="current">
+            <center><h4>Page {{ viewall.number }} of {{ viewall.paginator.num_pages }}.</h4></center>
+        </span>
+
+        {% if viewall.has_previous %}
+            <a href="?page={{ viewall.previous_page_number }}">Previous page </a>
+        {% endif %}
+
+        {% if viewall.has_next %}
+            <a href="?page={{ viewall.next_page_number }}"> Next page</a>
+        {% endif %}
+    </span>
+</div>
+</center>
+{% endblock %}

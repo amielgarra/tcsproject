@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Thesis Collection System</title>
+    <style>
+    #of {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+    </style>
+    {% load widget_tweaks %}
+    {% load static %}
+    <!-- Bootstrap -->
+    <link href="{% static 'tcsproject/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+	<!-- Custom styles for this template -->
+	<link href="{% static 'tcsproject/navigation.css' %}" rel="stylesheet" type="text/css">
+
+    <script src="{% static 'tcsproject/js/jquery-3.1.1.min.js' %}"></script>
+    <script src="{% static 'tcsproject/js/bootstrap.min.js' %}"></script>
+    
+<script type="text/javascript">
+    $(window).ready(function(){
+        $("#myMessage").modal('show');
+    });
+
+//     $('input[name="q"]').change(function(){
+// alert($('#searchBtn').attr('href')+$('input[name="q"]').val());
+// });
+
+    $(function() {
+    $('#searchBtn').click( function() {
+        window.location = $(this).attr('href') + $('#q').val();
+        return false;
+    });
+});
+</script>
+
+<style>
+
+  #whiteh3 h4{
+    color: #ecf0f1;
+  }
+</style>
+
+  </head>
+
+<body>
+
+<nav class="navbar navbar-inverse navbar-static-top example-8">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar8">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand text-hide" href="#">Brand Text
+        </a>
+      </div>
+      <div id="navbar8" class="navbar-collapse collapse">
+      </ul>
+        <ul class="nav navbar-nav navbar-right">
+        <div class="col-bg-3 col-md-12">
+        <form class="navbar-form" role="search" action="">
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search" name="q" id="q">
+            
+
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" id="searchBtn" href="/tcsproject/home/search=">
+            
+                <i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+        </form>
+    </div>
+    </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class=""><a href="{% url 'tcsproject:home' %}">Home</a></li>
+          <li class=""><a href="{% url 'tcsproject:viewall' %}">All Thesis</a></li>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'tcsproject:categories' id='Books' %}">Books</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Catalogs' %}">Catalogs</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Education' %}">Education</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Entertainment' %}">Entertainment</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Finance' %}">Finance</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Food and Drink' %}">Food and Drink</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Games' %}">Games</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Health and Fitness' %}">Health and Fitness</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Lifestyle' %}">Lifestyle</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Magazines and Newspaper' %}">Magazines and Newspaper</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Medical' %}">Medical</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Music' %}">Music</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Navigation' %}">Navigation</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='News' %}">News</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Photo and Video' %}">Photo and Video</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Productivity' %}">Productivity</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Reference' %}">Reference</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Shopping' %}">Shopping</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Social Networking' %}">Social Networking</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Sports' %}">Sports</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Travel' %}">Travel</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Utilities' %}">Utilities</a></li>
+              <li><a href="{% url 'tcsproject:categories' id='Weather' %}">Weather</a></li>
+            </ul>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class=""><a href="{% url 'tcsproject:addnewthesis' %}">New</a></li>
+          {% endif %}
+        
+      </div>
+      <!--/.nav-collapse -->
+    </div>
+    <!--/.container-fluid -->
+  </nav>
+{% block content %}
+
+{% endblock %}
+</body>
+
+</html>

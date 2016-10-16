@@ -1,0 +1,10 @@
+
+Contact Name:
+{{ name }}
+
+Thesis Title:
+{{ thesis_title }}
+
+Message:
+{{ message|safe|striptags }}
+

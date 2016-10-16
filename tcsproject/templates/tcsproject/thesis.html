@@ -1,0 +1,114 @@
+{% extends 'tcsproject/base.html' %}
+{% block content %}
+{% load widget_tweaks %}
+
+<style>
+  #whiteh3 h3,h4{
+    color:#ecf0f1;
+  }
+  #grayh3 h3,h4,h2,h1,h5{
+    color:#2c3e50;
+  }
+
+#white h1,h2,h3{
+	color:#ecf0f1
+}
+
+#w74 { word-wrap: break-word; }
+
+#inlineform form{
+	display: inline-block;
+   }
+</style>
+
+{% if messages %}
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="myMessage">
+  <div class="modal-dialog modal-sm" role="document" id="grayh3">
+      {% for message in messages %}
+        <center><h2 class="modal-title" id="grayh3">{{message}}</h2></center>
+      {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<div class="container">
+<div class="row">
+<div class="col-lg-12 col-md-3" id="grayh3">
+    <div class="thumbnail" style="min-height: auto; height: auto; width: auto;">
+    <div class="header" id="w74">
+      <center><h3>{{topic.title}}</h3></center>
+      <center><h4><small>{{topic.desc}}</small></h4></center>
+      <center>by<h4><small><strong>{{topic.authors}}</strong></small></h4></center>
+    </div>
+      <div class="caption">
+        <hr>
+        <div>
+        <center><h4>Abstract</h4></center>
+        </div>
+        <div id="w74">
+        {{topic.abstract}}
+        </div>
+        <!-- </div> -->
+        <br>
+        <hr>
+        <div>
+        <i>Date published: </i>{{topic.date_published}}
+        </div>
+        <div>
+        <i>Date added: </i>{{topic.date_added}}
+        </div>
+        <br>
+        <br>
+        <div><i>Likes: </i>
+        {% for key, value in likes.iteritems %}
+          {% if key == topic.title %}
+            {{value}}
+          {% endif %}
+        {% endfor %}
+        </div>
+        <br>
+        <div class="form-group" id="inlineform">
+        {% if request.user.is_authenticated %}
+		<form action="{% url 'tcsproject:deletethesis' id=topic.id %}">
+		<input style="display:inline;" type="submit" name="delete" class="btn btn-danger" value="Delete"/>
+		</form>
+		{% endif %}
+		<form action="{% url 'tcsproject:like' thesis=topic.title session_id=session %}" method="POST">
+        {% csrf_token %}
+        <button class="btn btn-primary" type="submit" value="Like"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span> Like</button>
+      	</form>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Contact the authors
+</button>
+		</div>
+
+        </div>
+      </div>
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">Contact authors</h4>
+      </div>
+      <form action="{% url 'tcsproject:thesisview' id=topic.id %}" method="post">
+      {% csrf_token %}
+      <div class="modal-body">
+        {{contactform.name|add_class:'form-control'|attr:'placeholder:Name'}}<br>
+        {{contactform.message|add_class:'form-control'|attr:'placeholder:Message'}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input class="btn btn-primary" type="submit" value="Send Message"/>
+      </div>
+      </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+{% endblock %}

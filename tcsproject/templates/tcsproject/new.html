@@ -1,0 +1,63 @@
+{% extends 'tcsproject/base.html' %}
+{% block content %}
+
+{% load widget_tweaks %}
+<style>
+#right input {
+    float:right;
+    clear:both;
+}
+</style>
+<div class="container-fluid">
+  <div class="col-lg col-lg-8 col-lg-offset-2">
+    <div class="thumbnail" style="min-height: 200px; height: auto; width: auto;">
+      <div class="caption">
+      <h4>Add New Thesis</h4>
+        <form action="{% url 'tcsproject:addnewthesis' %}" method="post">
+        {% csrf_token %}
+    
+        <div class="form-group">
+          <div class="col-lg-6">
+            {{ newthesis.title.error}}
+            {{ newthesis.title|add_class:'form-control'|attr:'placeholder:Title'}}<br>
+            
+          </div>
+          <div class="col-lg-6">
+            {{ newthesis.authors.error}}
+            {{ newthesis.authors|add_class:'form-control'|attr:'placeholder:Authors (separated by comma)'}}<br>
+          </div>
+          <div class="col-lg-12">
+            {{ newthesis.desc|add_class:'form-control'|attr:'placeholder:Description'|attr:'rows:3'}}<br>
+          </div>
+          <div class="col-lg-12">
+            {{ newthesis.abstract|add_class:'form-control'|attr:'placeholder:Abstract'|attr:'rows:3'}}<br>
+          </div>
+          <div class="col-lg-4">
+            {{ newthesis.date_published.error}}
+            {{ newthesis.date_published|add_class:'form-control'|attr:'placeholder:Date published (yyyy-mm-dd)'}}<br>
+          </div>
+          <div class="col-lg-4">
+            {{ newthesis.emails.error}}
+            {{ newthesis.emails|add_class:'form-control'|attr:'placeholder:Email'}}<br>
+          </div>
+          <div class="col-lg-4">
+            {{ newthesis.no_of_pages.error}}
+            {{ newthesis.no_of_pages|add_class:'form-control'|attr:'placeholder:Number of pages'}}<br>
+          </div>
+          <div class="col-lg-6">
+            {{ newthesis.dept|add_class:'form-control'}}<br>
+          </div>
+          <div class="col-lg-6">
+            {{ newthesis.category|add_class:'form-control'}}<br>
+          </div>
+        </div>
+        <div align="right">
+          <input class="btn btn-primary" type="submit" value="Add Thesis"/>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

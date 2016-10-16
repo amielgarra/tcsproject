@@ -1,0 +1,99 @@
+{% extends 'tcsproject/base.html' %}
+{% block content %}
+{% load widget_tweaks %}
+
+<script type="text/javascript">
+    $(window).ready(function(){
+        $('myMessage').modal('show');
+    });
+</script>
+  <!-- START OF ACTUAL CONTENTS -->
+<!-- {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %} -->
+
+{% if messages %}
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="myMessage">
+  <div class="modal-dialog modal-sm" role="document">
+  <!-- <div class="modal-header"> -->
+    <!-- <div class="modal-body"> -->
+      <!-- <div class="modal-content"> -->
+      <div class="alert alert-info" role="alert">
+      {% for message in messages %}
+        <center><h2 class="modal-title">{{message}}</h2></center>
+      {% endfor %}
+      </div>
+      <!-- </div> -->
+    <!-- </div> -->
+    <!-- </div> -->
+  </div>
+</div>
+{% endif %}
+<div class="container-fluid" id="whiteh3">
+<div id="whiteh3">
+<h4>Featured Thesis</h4>
+
+{% for topic in featured %}  
+<div class="col-sm-6 col-md-3" id="grayh3">
+    <div class="thumbnail" style="min-height: 200px; height: 230px; width: 300px;">
+      <center><h3>{{topic.title}}</h3></center>
+      <div class="caption">
+        <div style="min-height: 50px; height: 80px;" id="of">
+        <p>{{topic.desc}}</p>
+        </div>
+        <br>
+        <div><i>Likes: </i>
+        {% for key, value in likes.iteritems %}
+          {% if key == topic.title %}
+            {{value}}
+          {% endif %}
+        {% endfor %}
+        </div>
+        <!-- <center><a class="btn btn-big" data-toggle="modal" data-target="#{{topic.id}}">View {{topic.title}}</a></center> -->
+        <center><a class="btn btn-big" href="/tcsproject/thesis/{{topic.id}}">View {{topic.title}}</a></center>
+        </div>
+      </div>
+</div>
+
+
+{% endfor %}
+
+<div>
+<h4>Recently Added Thesis</h4>
+</div>
+{% for topic in recently_added %}  
+<div class="col-sm-6 col-md-3" id="grayh3">
+    <div class="thumbnail" style="min-height: 200px; height: 230px; width: 300px;">
+        <center><h3>{{topic.title}}</h3></center>
+      <div class="caption">
+        <div style="min-height: 50px; height: 80px;" id="of">
+        <p>{{topic.desc}}</p>
+        </div>
+        <br>
+        <div><i>Likes: </i>
+        {% for key, value in likes.iteritems %}
+          {% if key == topic.title %}
+            {{value}}
+          {% endif %}
+        {% endfor %}
+        </div>
+        <!-- <center><a class="btn btn-big" data-toggle="modal" data-target="#{{topic.id}}">View {{topic.title}}</a></center> -->
+        <center><a class="btn btn-big" href="/tcsproject/thesis/{{topic.id}}">View {{topic.title}}</a></center>
+      </div>
+    </div>
+</div>
+
+
+{% endfor %}
+
+
+
+</div>
+</div>
+
+
+{% endblock %}
